@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import UIKit
 
 public struct SF: View {
     @ObservedObject public var model:SimpleFormModel = SimpleFormModel()
@@ -33,16 +34,26 @@ public struct SF: View {
                             if (validator.validateEmail(value: field.model.value) == false) {
                                 errors.append(false)
                                 field.model.errors.append("Please enter a valid email address.")
+                                if UIAccessibility.isVoiceOverRunning {
+                                    UIAccessibility.post(notification: .announcement, argument: "Please enter a valid email address.")
+                                }
+
                             }
                         case .required:
                             if (validator.validateEmpty(value: field.model.value) == false) {
                                 errors.append(false)
                                 field.model.errors.append("This field is required.")
+                                if UIAccessibility.isVoiceOverRunning {
+                                    UIAccessibility.post(notification: .announcement, argument: "The field \(field.model.label) is required")
+                                }
                             }
                         case .regex(let regex, let errorMessage):
                             if (validator.validateRegex(value: field.model.value, regex: regex) == false) {
                                 errors.append(false)
                                 field.model.errors.append(errorMessage)
+                                if UIAccessibility.isVoiceOverRunning {
+                                    UIAccessibility.post(notification: .announcement, argument: errorMessage)
+                                }
                             }
                         }
                     }
