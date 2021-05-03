@@ -145,7 +145,7 @@ extension TextView {
         return view
     }
 
-    func placeholderFont(_ font: Font) -> TextView {
+    public func placeholderFont(_ font: Font) -> TextView {
         var view = self
         view.placeholderFont = font
         return view
