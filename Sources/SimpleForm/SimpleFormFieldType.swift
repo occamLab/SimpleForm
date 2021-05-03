@@ -10,6 +10,7 @@ import SwiftUI
 
 public enum SimpleFormFieldType {
     case text
+    case textView
     case picker
     case toggle
     case slider

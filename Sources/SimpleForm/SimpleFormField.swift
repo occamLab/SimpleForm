@@ -21,6 +21,16 @@ public struct SimpleFormField: View, Identifiable {
         self.model.validation = validation
         self.model.keyboardType = keyboardType
     }
+
+    public init(textView label:String, labelPosition:SimpleFormFieldLabelPosition = .placeholder, name:String,value:Any,validation:[SimpleFormValidationType] = [], keyboardType:UIKeyboardType = UIKeyboardType.default) {
+        self.model.type = .textView
+        self.model.label = label
+        self.model.labelPosition = labelPosition
+        self.model.name = name
+        self.model.value = value
+        self.model.validation = validation
+        self.model.keyboardType = keyboardType
+    }
     
     public init(pickerField label:String, labelPosition:SimpleFormFieldLabelPosition = .placeholder, name:String, selection:Int, options:Array<Any>, display:([Any]) -> AnyView, validation:[SimpleFormValidationType] = []) {
         self.model.type = .picker
@@ -33,7 +43,7 @@ public struct SimpleFormField: View, Identifiable {
         self.model.value = self.model.options[selection]
         self.model.validation = validation
     }
-    
+
     public init(toggleField label:String, name:String, value:Bool = false) {
         self.model.type = .toggle
         self.model.label = label
@@ -96,6 +106,21 @@ public struct SimpleFormField: View, Identifiable {
             }
             if self.model.type == .text {
                 TextField(self.model.labelPosition == .placeholder ? self.model.label : "", text: Binding(get: {
+                    return self.model.value as! String
+                }, set: { (newValue) in
+                    self.model.value = newValue
+                }))
+                    .keyboardType(self.model.keyboardType)
+                    .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                    .padding(.all, 5)
+                    .textFieldStyle(PlainTextFieldStyle())
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 4)
+                            .stroke(self.model.errors.count > 0 ? Color.red : Color.gray, lineWidth: 1)
+                )
+                
+            } else if self.model.type == .textView {
+                TextView(self.model.labelPosition == .placeholder ? self.model.label : "", text: Binding(get: {
                     return self.model.value as! String
                 }, set: { (newValue) in
                     self.model.value = newValue
