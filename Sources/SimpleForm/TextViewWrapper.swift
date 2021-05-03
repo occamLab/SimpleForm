@@ -13,7 +13,7 @@ struct TextView_Previews: PreviewProvider {
     }
 }
 
-struct TextView: View {
+public struct TextView: View {
 
     @Environment(\.layoutDirection) private var layoutDirection
     @Binding private var text: String
