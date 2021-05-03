@@ -49,7 +49,7 @@ public struct TextView: View {
         }
     }
 
-    init(_ title: String,
+    public init(_ title: String,
          text: Binding<String>,
          shouldEditInRange: ((Range<String.Index>, String) -> Bool)? = nil,
          onEditingChanged: (() -> Void)? = nil,
