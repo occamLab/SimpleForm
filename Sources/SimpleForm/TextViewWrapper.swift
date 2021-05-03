@@ -13,7 +13,7 @@ struct TextView_Previews: PreviewProvider {
     }
 }
 
-public struct TextView: View {
+struct TextView: View {
 
     @Environment(\.layoutDirection) private var layoutDirection
     @Binding private var text: String
@@ -49,7 +49,7 @@ public struct TextView: View {
         }
     }
 
-    public init(_ title: String,
+    init(_ title: String,
          text: Binding<String>,
          shouldEditInRange: ((Range<String.Index>, String) -> Bool)? = nil,
          onEditingChanged: (() -> Void)? = nil,
@@ -64,7 +64,7 @@ public struct TextView: View {
         self.onEditingChanged = onEditingChanged
     }
 
-    public var body: some View {
+    var body: some View {
         SwiftUITextView(internalText,
                         foregroundColor: foregroundColor,
                         font: font,
@@ -145,7 +145,7 @@ extension TextView {
         return view
     }
 
-    public func placeholderFont(_ font: Font) -> TextView {
+    func placeholderFont(_ font: Font) -> TextView {
         var view = self
         view.placeholderFont = font
         return view
@@ -285,9 +285,9 @@ private struct SwiftUITextView: UIViewRepresentable {
 
     func makeUIView(context: Context) -> UIKitTextView {
         let view = UIKitTextView()
+        view.addDoneButton()
         view.delegate = context.coordinator
         view.textContainer.lineFragmentPadding = 0
-        view.textContainerInset = .zero
         view.backgroundColor = UIColor.clear
         view.adjustsFontForContentSizeCategory = true
         view.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
@@ -398,9 +398,23 @@ private extension SwiftUITextView {
 
 }
 
-private final class UIKitTextView: UITextView {
 
-    override var keyCommands: [UIKeyCommand]? {
+public class UIKitTextView: UITextView {
+
+    func addDoneButton() {
+        let toolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0,  width: frame.size.width, height: 30))
+        let flexSpace = UIBarButtonItem(barButtonSystemItem:    .flexibleSpace, target: nil, action: nil)
+        let doneBtn: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(dismissMyKeyboard))
+        toolbar.setItems([flexSpace, doneBtn], animated: false)
+        toolbar.sizeToFit()
+        inputAccessoryView = toolbar
+    }
+    
+    @objc func dismissMyKeyboard() {
+        resignFirstResponder()
+    }
+
+    public override var keyCommands: [UIKeyCommand]? {
         return (super.keyCommands ?? []) + [
             UIKeyCommand(input: UIKeyCommand.inputEscape, modifierFlags: [], action: #selector(escape(_:)))
         ]
@@ -409,5 +423,4 @@ private final class UIKitTextView: UITextView {
     @objc private func escape(_ sender: Any) {
         resignFirstResponder()
     }
-
 }

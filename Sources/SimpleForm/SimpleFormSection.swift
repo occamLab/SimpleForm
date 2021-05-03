@@ -17,11 +17,13 @@ public struct SimpleFormSection: View, Identifiable {
     }
     
     public var body: some View {
-        Section {
-            ForEach(self.model.fields, id: \.id) { field in
-                field
-            }
-        }.listRowInsets(EdgeInsets(top: 15, leading: 15, bottom: 15, trailing: 15))
+        VStack {
+            Section {                    
+                ForEach(self.model.fields, id: \.id) { field in
+                    field
+                }
+            }.listRowInsets(EdgeInsets(top: 15, leading: 15, bottom: 15, trailing: 15))
+        }
     }
 }
 

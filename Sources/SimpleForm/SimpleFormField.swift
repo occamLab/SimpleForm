@@ -100,9 +100,9 @@ public struct SimpleFormField: View, Identifiable {
                         Text(String(format: "%.2f", self.model.value as! Float))
                     }
                 } else {
-                   Text(self.model.label)
+                    Text(self.model.label)
                 }
-                
+
             }
             if self.model.type == .text {
                 TextField(self.model.labelPosition == .placeholder ? self.model.label : "", text: Binding(get: {
@@ -118,7 +118,6 @@ public struct SimpleFormField: View, Identifiable {
                         RoundedRectangle(cornerRadius: 4)
                             .stroke(self.model.errors.count > 0 ? Color.red : Color.gray, lineWidth: 1)
                 )
-                
             } else if self.model.type == .textView {
                 TextView(self.model.labelPosition == .placeholder ? self.model.label : "", text: Binding(get: {
                     return self.model.value as! String
@@ -133,7 +132,6 @@ public struct SimpleFormField: View, Identifiable {
                         RoundedRectangle(cornerRadius: 4)
                             .stroke(self.model.errors.count > 0 ? Color.red : Color.gray, lineWidth: 1)
                 )
-                
             } else if(self.model.type == .picker) {
                 Picker(selection: Binding(get: {
                     return self.model.pickerSelection

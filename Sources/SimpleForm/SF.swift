@@ -18,6 +18,7 @@ public struct SF: View {
     
     public func isValid() -> Bool {
         var errors:[Bool] = []
+        var errorsToAnnounce:[String] = []
         
         for section in self.model.sections {
             let fields = section.model.fields
@@ -34,40 +35,33 @@ public struct SF: View {
                             if (validator.validateEmail(value: field.model.value) == false) {
                                 errors.append(false)
                                 field.model.errors.append("Please enter a valid email address.")
-                                if UIAccessibility.isVoiceOverRunning {
-                                    UIAccessibility.post(notification: .announcement, argument: "Please enter a valid email address.")
-                                }
-
+                                errorsToAnnounce.append(field.model.errors.last!)
                             }
                         case .required:
                             if (validator.validateEmpty(value: field.model.value) == false) {
                                 errors.append(false)
                                 field.model.errors.append("This field is required.")
-                                if UIAccessibility.isVoiceOverRunning {
-                                    UIAccessibility.post(notification: .announcement, argument: "The field \(field.model.label) is required")
-                                }
+                                errorsToAnnounce.append("The field \(field.model.label) is required")
                             }
                         case .regex(let regex, let errorMessage):
                             if (validator.validateRegex(value: field.model.value, regex: regex) == false) {
                                 errors.append(false)
                                 field.model.errors.append(errorMessage)
-                                if UIAccessibility.isVoiceOverRunning {
-                                    UIAccessibility.post(notification: .announcement, argument: errorMessage)
-                                }
+                                errorsToAnnounce.append(field.model.errors.last!)
                             }
                         }
                     }
-
-                    
                 }
-                
             }
-            
-            
         }
         
         if errors.count > 0 {
             self.model.isValid = false
+            if UIAccessibility.isVoiceOverRunning {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    UIAccessibility.post(notification: .announcement, argument: errorsToAnnounce.joined(separator: "\n"))
+                }
+            }
             return false
         } else {
             self.model.isValid = true
