@@ -64,7 +64,7 @@ public struct TextView: View {
         self.onEditingChanged = onEditingChanged
     }
 
-    var body: some View {
+    public var body: some View {
         SwiftUITextView(internalText,
                         foregroundColor: foregroundColor,
                         font: font,
