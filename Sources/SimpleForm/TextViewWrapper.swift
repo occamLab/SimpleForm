@@ -288,7 +288,6 @@ private struct SwiftUITextView: UIViewRepresentable {
         view.addDoneButton()
         view.delegate = context.coordinator
         view.textContainer.lineFragmentPadding = 0
-        view.textAlignment = .natural
         view.backgroundColor = UIColor.clear
         view.adjustsFontForContentSizeCategory = true
         view.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
@@ -299,9 +298,6 @@ private struct SwiftUITextView: UIViewRepresentable {
         view.text = text
         view.font = font
         view.textAlignment = multilineTextAlignment
-        if view.textAlignment != .natural {
-            print("whoops!")
-        }
         view.textColor = foregroundColor
         view.autocapitalizationType = autocapitalization
         view.autocorrectionType = autocorrection
