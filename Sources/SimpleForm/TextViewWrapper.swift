@@ -29,7 +29,7 @@ struct TextView: View {
     private var placeholderAlignment: TextAlignment = .leading
     private var foregroundColor: UIColor = .label
     private var autocapitalization: UITextAutocapitalizationType = .sentences
-    private var multilineTextAlignment: NSTextAlignment = .left
+    private var multilineTextAlignment: NSTextAlignment = .natural
     private var font: UIFont = .preferredFont(forTextStyle: .body)
     private var returnKeyType: UIReturnKeyType?
     private var clearsOnInsertion: Bool = false
