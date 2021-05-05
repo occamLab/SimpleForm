@@ -288,6 +288,7 @@ private struct SwiftUITextView: UIViewRepresentable {
         view.addDoneButton()
         view.delegate = context.coordinator
         view.textContainer.lineFragmentPadding = 0
+        view.textAlignment = .natural
         view.backgroundColor = UIColor.clear
         view.adjustsFontForContentSizeCategory = true
         view.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
