@@ -40,7 +40,7 @@ public struct SF: View {
                         case .required:
                             if (validator.validateEmpty(value: field.model.value) == false) {
                                 errors.append(false)
-                                field.model.errors.append(NSLocalizedString("missingRequiredFieldHighlight", comment: "This text is displayed below the field if the user fails to enter a value for a required field"))
+                                field.model.errors.append(NSLocalizedString("missingRequiredFieldHighlight", bundle: .module, comment: "This text is displayed below the field if the user fails to enter a value for a required field"))
                                 errorsToAnnounce.append(String(format: NSLocalizedString("missingRequiredFieldAnnouncement", comment: "This is announced to the user if they are using VoiceOver and they fail to enter a value for a required field"), field.model.label))
                             }
                         case .regex(let regex, let errorMessage):
