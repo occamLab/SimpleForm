@@ -299,6 +299,9 @@ private struct SwiftUITextView: UIViewRepresentable {
         view.text = text
         view.font = font
         view.textAlignment = multilineTextAlignment
+        if view.textAlignment != .natural {
+            print("whoops!")
+        }
         view.textColor = foregroundColor
         view.autocapitalizationType = autocapitalization
         view.autocorrectionType = autocorrection
