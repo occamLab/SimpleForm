@@ -1,2 +1,3 @@
 
 "missingRequiredFieldHighlight" = "This field is required.";
+"missingRequiredFieldAnnouncement" = "The field %@ is required\n";

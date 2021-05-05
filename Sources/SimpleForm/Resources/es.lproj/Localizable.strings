@@ -1,2 +1,3 @@
 
 "missingRequiredFieldHighlight" = "Este campo es requerido.";
+"missingRequiredFieldAnnouncement" = "El campo %@ es requerido\n";
