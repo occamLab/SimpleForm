@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import UIKit
 
 public struct SF: View {
     @ObservedObject public var model:SimpleFormModel = SimpleFormModel()
@@ -34,7 +33,7 @@ public struct SF: View {
                         case .email:
                             if (validator.validateEmail(value: field.model.value) == false) {
                                 errors.append(false)
-                                field.model.errors.append("Please enter a valid email address.")
+                                field.model.errors.append(NSLocalizedString("invalidEmailAddress", bundle: .module, comment: "This text is displayed below the field if the user fails to enter a valid email address"))
                                 errorsToAnnounce.append(field.model.errors.last!)
                             }
                         case .required:
