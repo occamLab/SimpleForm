@@ -12,4 +12,12 @@ public enum SimpleFormValidationType {
     case required
     case email
     case regex(String, String)
+    
+    var isRequired: Bool {
+        if case .required = self {
+            return true
+        } else {
+            return false
+        }
+    }
 }

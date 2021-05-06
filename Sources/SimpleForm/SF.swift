@@ -31,7 +31,7 @@ public struct SF: View {
                     for validation in field.model.validation {
                         switch validation {
                         case .email:
-                            if (validator.validateEmail(value: field.model.value) == false) {
+                            if (validator.validateEmail(value: field.model.value) == false && !(field.model.validation.map({$0.isRequired}).firstIndex(of: true) == nil && validator.validateEmpty(value: field.model.value) == false)) {
                                 errors.append(false)
                                 field.model.errors.append(NSLocalizedString("invalidEmailAddress", bundle: .module, comment: "This text is displayed below the field if the user fails to enter a valid email address"))
                                 errorsToAnnounce.append(field.model.errors.last!)
