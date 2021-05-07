@@ -51,12 +51,13 @@ public struct SimpleFormField: View, Identifiable {
         self.model.value = value
     }
     
-    public init(sliderField label:String, name:String, value:Float = 0, range:ClosedRange<Float>) {
+    public init(sliderField label:String, name:String, value:Float = 0, quantizeSlider: Bool = false, range:ClosedRange<Float>) {
         self.model.type = .slider
         self.model.label = label
         self.model.labelPosition = .above
         self.model.name = name
         self.model.value = value
+        self.model.quantizeSlider = quantizeSlider
         self.model.closedRange = range
         
         
@@ -153,6 +154,7 @@ public struct SimpleFormField: View, Identifiable {
                 }, set: { (newValue) in
                     self.model.value = newValue
                 }), in: self.model.closedRange)
+                .if(self.model.quantizeSlider) { $0.accessibility(value: Text("\(Int(self.model.value as! Float))")) }
             } else if(self.model.type == .stepper){
                 Stepper("\(self.model.label) (\(String(format: "%.0f", self.model.value as! Float)))", value: Binding(get: {
                     return self.model.value as! Float
