@@ -180,7 +180,7 @@ public struct SimpleFormField: View, Identifiable {
                 }
                 
             }
-        }
+        }.background(Color.yellow)
         
     }
 }

@@ -89,7 +89,7 @@ public struct SF: View {
             }
         }
         .onAppear {
-            UITableView.appearance().backgroundColor = .orange
+            //UITableView.appearance().backgroundColor = .orange
             UITableView.appearance().tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: Double.leastNonzeroMagnitude))
             UITableView.appearance().tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: Double.leastNonzeroMagnitude))
             UITableView.appearance().separatorStyle = .none
