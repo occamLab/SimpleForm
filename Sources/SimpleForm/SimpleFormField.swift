@@ -151,7 +151,7 @@ public struct SimpleFormField: View, Identifiable {
                 }))
             } else if(self.model.type == .slider) {
                 if self.model.quantizeSlider {
-                    ValueSlider(value: Binding(get: {
+                    Slider(value: Binding(get: {
                         return self.model.value as! Float
                     }, set: { (newValue) in
                         self.model.value = newValue
