@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Sliders
 
 public struct SimpleFormField: View, Identifiable {
     public var id = UUID()
@@ -98,7 +99,7 @@ public struct SimpleFormField: View, Identifiable {
                     HStack {
                         Text(self.model.label)
                         Spacer()
-                        Text(String(format: self.model.quantizeSlider ? "%.0f": "%.2f", self.model.value as! Float))
+                        Text(String(format: self.model.quantizeSlider ? "%.0f": "%.2f", self.model.value as! Float)).accessibility(hidden: true)
                     }
                 } else {
                     Text(self.model.label)
@@ -150,7 +151,7 @@ public struct SimpleFormField: View, Identifiable {
                 }))
             } else if(self.model.type == .slider) {
                 if self.model.quantizeSlider {
-                    Slider(value: Binding(get: {
+                    ValueSlider(value: Binding(get: {
                         return self.model.value as! Float
                     }, set: { (newValue) in
                         self.model.value = newValue
@@ -161,7 +162,7 @@ public struct SimpleFormField: View, Identifiable {
                         return self.model.value as! Float
                     }, set: { (newValue) in
                         self.model.value = newValue
-                    }), in: self.model.closedRange)
+                    }), in: self.model.closedRange).accentColor(.red)
                 }
             } else if(self.model.type == .stepper){
                 Stepper("\(self.model.label) (\(String(format: "%.0f", self.model.value as! Float)))", value: Binding(get: {
