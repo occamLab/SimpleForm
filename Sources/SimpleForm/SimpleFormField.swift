@@ -98,7 +98,7 @@ public struct SimpleFormField: View, Identifiable {
                     HStack {
                         Text(self.model.label)
                         Spacer()
-                        Text(String(format: "%.2f", self.model.value as! Float))
+                        Text(String(format: self.model.quantizeSlider ? "%.0f": "%.2f", self.model.value as! Float))
                     }
                 } else {
                     Text(self.model.label)
