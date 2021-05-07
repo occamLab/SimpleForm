@@ -151,21 +151,16 @@ public struct SimpleFormField: View, Identifiable {
                 }))
             } else if(self.model.type == .slider) {
                 ZStack {
-                    if self.model.quantizeSlider {
-                        Slider(value: Binding(get: {
-                            return self.model.value as! Float
-                        }, set: { (newValue) in
-                            self.model.value = newValue
-                        }), in: self.model.closedRange, step: 1)
-                        .background(Color.clear).accessibility(value: Text("\(Int(self.model.value as! Float))")).padding(20)
-                    } else {
-                        Slider(value: Binding(get: {
-                            return self.model.value as! Float
-                        }, set: { (newValue) in
-                            self.model.value = newValue
-                        }), in: self.model.closedRange)
-                        .background(Color.clear).padding(20)
+                    Slider(value: Binding(get: {
+                        return self.model.value as! Float
+                    }, set: { (newValue) in
+                        self.model.value = newValue
+                    }), in: self.model.closedRange, step: 1)
+                    .frame(minHeight: 200)
+                    .background(Color.clear)
+                    .if(self.model.quantizeSlider) { $0.accessibility(value: Text("\(Int(self.model.value as! Float))"))
                     }
+                    .padding(20)
                 }.background(Color.yellow)
             } else if(self.model.type == .stepper){
                 Stepper("\(self.model.label) (\(String(format: "%.0f", self.model.value as! Float)))", value: Binding(get: {
