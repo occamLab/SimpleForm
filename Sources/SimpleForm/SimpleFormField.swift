@@ -149,12 +149,20 @@ public struct SimpleFormField: View, Identifiable {
                     self.model.value = newValue
                 }))
             } else if(self.model.type == .slider) {
-                Slider(value: Binding(get: {
-                    return self.model.value as! Float
-                }, set: { (newValue) in
-                    self.model.value = newValue
-                }), in: self.model.closedRange)
-                .if(self.model.quantizeSlider) { $0.accessibility(value: Text("\(Int(self.model.value as! Float))")) }
+                if self.model.quantizeSlider {
+                    Slider(value: Binding(get: {
+                        return self.model.value as! Float
+                    }, set: { (newValue) in
+                        self.model.value = newValue
+                    }), in: self.model.closedRange, step: 1)
+                    .accessibility(value: Text("\(Int(self.model.value as! Float))"))
+                } else {
+                    Slider(value: Binding(get: {
+                        return self.model.value as! Float
+                    }, set: { (newValue) in
+                        self.model.value = newValue
+                    }), in: self.model.closedRange)
+                }
             } else if(self.model.type == .stepper){
                 Stepper("\(self.model.label) (\(String(format: "%.0f", self.model.value as! Float)))", value: Binding(get: {
                     return self.model.value as! Float
