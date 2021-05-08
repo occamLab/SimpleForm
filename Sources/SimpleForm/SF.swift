@@ -103,7 +103,7 @@ public struct SF: View {
     public var body: some View {
         Form {
             if hasRequiredTextElement {
-                Text("* = required").font(.footnote)
+                Text("* = " + NSLocalizedString("required", bundle: .module, comment: "this is part of an annotation that defines what the asterisk symbol means")).font(.footnote).accessibility(hidden: true)
             }
             ForEach(self.model.sections, id: \.id) { jamFormSection in
                 jamFormSection
