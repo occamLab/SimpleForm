@@ -96,8 +96,15 @@ public struct SF: View {
         return values
     }
     
+    public var hasRequiredTextElement: Bool {
+        model.sections.map({ $0.model.hasRequiredTextElement }).firstIndex(of: true) != nil
+    }
+    
     public var body: some View {
         Form {
+            if hasRequiredTextElement {
+                Text("* = required").font(.footnote)
+            }
             ForEach(self.model.sections, id: \.id) { jamFormSection in
                 jamFormSection
             }

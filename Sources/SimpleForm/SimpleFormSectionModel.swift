@@ -10,4 +10,8 @@ import SwiftUI
 
 public class SimpleFormSectionModel:ObservableObject {
     @Published public var fields:[SimpleFormField] = []
+    
+    var hasRequiredTextElement: Bool {
+        return fields.map({ $0.model.isRequiredTextElement }).firstIndex(of: true) != nil
+    }
 }

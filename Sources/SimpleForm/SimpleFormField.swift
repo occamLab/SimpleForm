@@ -103,7 +103,7 @@ public struct SimpleFormField: View, Identifiable {
                         Text(String(format: self.model.quantizeSlider ? "%.0f": "%.2f", self.model.value as! Float)).accessibility(hidden: true)
                     }
                 } else {
-                    if self.model.isRequired && self.model.isTextElement {
+                    if self.model.isRequiredTextElement {
                         Text(self.model.label + " *").accessibility(label: Text(self.model.label + ", " + NSLocalizedString("required",  bundle: .module, comment: "this string is used to mark a field as required")))
                     } else {
                         Text(self.model.label)

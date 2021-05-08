@@ -35,4 +35,7 @@ public class SimpleFormFieldModel:ObservableObject {
         }
         return false
     }
+    public var isRequiredTextElement: Bool {
+        return isTextElement && isRequired
+    }
 }
