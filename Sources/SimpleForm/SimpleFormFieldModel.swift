@@ -23,4 +23,16 @@ public class SimpleFormFieldModel:ObservableObject {
     @Published public var validation:[SimpleFormValidationType] = []
     @Published public var errors:[String] = []
     @Published public var keyboardType:UIKeyboardType = UIKeyboardType.default
+    public var isRequired: Bool {
+        return validation.map({$0.isRequired}).firstIndex(of: true) != nil
+    }
+    public var isTextElement: Bool {
+        if case .text = type {
+            return true
+        }
+        if case .textView = type {
+            return true
+        }
+        return false
+    }
 }

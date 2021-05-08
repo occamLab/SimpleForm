@@ -103,7 +103,11 @@ public struct SimpleFormField: View, Identifiable {
                         Text(String(format: self.model.quantizeSlider ? "%.0f": "%.2f", self.model.value as! Float)).accessibility(hidden: true)
                     }
                 } else {
-                    Text(self.model.label)
+                    if self.model.isRequired && self.model.isTextElement {
+                        Text(self.model.label + "*").accessibility(label: Text(self.model.label + ", required"))
+                    } else {
+                        Text(self.model.label)
+                    }
                 }
 
             }
