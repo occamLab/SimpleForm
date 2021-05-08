@@ -2,3 +2,4 @@
 "invalidEmailAddress" = "Please enter a valid email address.";
 "missingRequiredFieldHighlight" = "This field is required.";
 "missingRequiredFieldAnnouncement" = "The field %@ is required\n";
+"required" = "required";

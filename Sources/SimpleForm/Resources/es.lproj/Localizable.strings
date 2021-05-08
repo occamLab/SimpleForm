@@ -2,3 +2,4 @@
 // these are not correctly localized (just a placeholder)
 "missingRequiredFieldHighlight" = "Este campo es requerido.";
 "missingRequiredFieldAnnouncement" = "El campo %@ es requerido\n";
+"required" = "requerido";

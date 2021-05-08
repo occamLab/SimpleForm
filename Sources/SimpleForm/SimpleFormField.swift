@@ -104,7 +104,7 @@ public struct SimpleFormField: View, Identifiable {
                     }
                 } else {
                     if self.model.isRequired && self.model.isTextElement {
-                        Text(self.model.label + "*").accessibility(label: Text(self.model.label + ", required"))
+                        Text(self.model.label + " *").accessibility(label: Text(self.model.label + ", " + NSLocalizedString("required",  bundle: .module, comment: "this string is used to mark a field as required")))
                     } else {
                         Text(self.model.label)
                     }
