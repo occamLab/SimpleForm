@@ -34,16 +34,16 @@ public struct SimpleFormField: View, Identifiable {
     }
     
     public init(pickerField label:String, labelPosition:SimpleFormFieldLabelPosition = .placeholder, name:String, selection:Int, options:Array<Any>, display:([Any]) -> AnyView, validation:[SimpleFormValidationType] = []) {
-        self.model.type = .picker
-        self.model.label = label
-        self.model.labelPosition = labelPosition
-        self.model.name = name
-        self.model.pickerSelection = selection
-        self.model.options = options
-        self.model.pickerDisplay = display(options)
-        self.model.value = self.model.options[selection]
-        self.model.validation = validation
-    }
+            self.model.type = .picker
+            self.model.label = label
+            self.model.labelPosition = labelPosition
+            self.model.name = name
+            self.model.pickerSelection = selection
+            self.model.options = options
+            self.model.pickerDisplay = display(options)
+            self.model.value = self.model.options[selection]
+            self.model.validation = validation
+        }
 
     public init(toggleField label:String, name:String, value:Bool = false) {
         self.model.type = .toggle
@@ -80,6 +80,23 @@ public struct SimpleFormField: View, Identifiable {
         self.model.name = name
         self.model.value = value
         self.model.closedRange = range
+    }
+    
+    public init(checkboxesField label:String, name:String, choices:Array<String>, value: Bool) {
+        self.model.type = .checkboxes
+        self.model.label = label
+        self.model.name = name
+        self.model.choices = choices
+        var valuesDict = Dictionary<String, Bool>()
+        for choice in choices {
+            valuesDict[choice] = value
+        }
+        self.model.value = valuesDict
+    }
+    
+    public init(title label:String) {
+        self.model.type = .title
+        self.model.label = label
     }
     
     public func checkSliderRange(label:String, value:Float, range:ClosedRange<Float>) throws {
@@ -174,6 +191,25 @@ public struct SimpleFormField: View, Identifiable {
                 }, set: { (newValue) in
                     self.model.value = newValue
                 }), in: self.model.closedRange)
+            } else if (self.model.type == .checkboxes) {
+                VStack {
+                    Text(self.model.label)
+                    Spacer()
+                    ForEach((self.model.choices as? [String])!,
+                            id: \.self
+                    ) { choice in
+                        Toggle(choice, isOn:  Binding(get: {
+                            let currentValue = self.model.value as! [String:Bool]
+                            return currentValue[choice]!
+                        }, set: { (newValue) in
+                            var currentValue = self.model.value as! [String:Bool]
+                            currentValue[choice] = newValue
+                            self.model.value = currentValue
+                        })).toggleStyle(CheckboxStyle())
+                    }
+                }
+            } else if (self.model.type == .title){
+                Text(self.model.label)
             } else {
                 EmptyView()
             }
@@ -182,9 +218,25 @@ public struct SimpleFormField: View, Identifiable {
                 ForEach(self.model.errors, id: \.self) { error in
                     Text("\(error)").font(.footnote)
                 }
-                
             }
         }
-        
+    }
+}
+
+
+struct CheckboxStyle: ToggleStyle {
+
+    func makeBody(configuration: Self.Configuration) -> some View {
+
+        return HStack {
+            Image(systemName: configuration.isOn ? "checkmark.square" : "square")
+                .resizable()
+                .frame(width: 24, height: 24)
+                .foregroundColor(configuration.isOn ? .blue : .gray)
+                .font(.system(size: 20, weight: .regular, design: .default))
+                configuration.label
+        }
+        .onTapGesture { configuration.isOn.toggle() }
+
     }
 }
