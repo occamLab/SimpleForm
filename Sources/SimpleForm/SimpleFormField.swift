@@ -194,7 +194,7 @@ public struct SimpleFormField: View, Identifiable {
                 VStack {
                     Text(self.model.label)
                     Spacer()
-                    ForEach((self.model.choices as? [(String, String)])!,
+                    ForEach(self.model.choices,
                             id: \.self.0
                     ) { choice in
                         Toggle(choice.1, isOn:  Binding(get: {
@@ -204,7 +204,7 @@ public struct SimpleFormField: View, Identifiable {
                             var currentValue = self.model.value as! [String:Bool]
                             currentValue[choice.0] = newValue
                             self.model.value = currentValue
-                        })).toggleStyle(CheckboxStyle())
+                        }))//.toggleStyle(CheckboxStyle())
                     }
                 }
             } else if (self.model.type == .title){
