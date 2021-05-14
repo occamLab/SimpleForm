@@ -81,14 +81,14 @@ public struct SimpleFormField: View, Identifiable {
         self.model.closedRange = range
     }
     
-    public init(checkboxesField label:String, name:String, choices:Array<String>, value: Bool) {
+    public init(checkboxesField label:String, name:String, choices:[(String, String)], value: Bool) {
         self.model.type = .checkboxes
         self.model.label = label
         self.model.name = name
         self.model.choices = choices
         var valuesDict = Dictionary<String, Bool>()
         for choice in choices {
-            valuesDict[choice] = value
+            valuesDict[choice.0] = value
         }
         self.model.value = valuesDict
     }
@@ -194,15 +194,15 @@ public struct SimpleFormField: View, Identifiable {
                 VStack {
                     Text(self.model.label)
                     Spacer()
-                    ForEach((self.model.choices as? [String])!,
-                            id: \.self
+                    ForEach((self.model.choices as? [(String, String)])!,
+                            id: \.self.0
                     ) { choice in
-                        Toggle(choice, isOn:  Binding(get: {
+                        Toggle(choice.1, isOn:  Binding(get: {
                             let currentValue = self.model.value as! [String:Bool]
-                            return currentValue[choice]!
+                            return currentValue[choice.0]!
                         }, set: { (newValue) in
                             var currentValue = self.model.value as! [String:Bool]
-                            currentValue[choice] = newValue
+                            currentValue[choice.0] = newValue
                             self.model.value = currentValue
                         })).toggleStyle(CheckboxStyle())
                     }
