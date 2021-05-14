@@ -194,19 +194,17 @@ public struct SimpleFormField: View, Identifiable {
                 VStack(alignment: .leading) {
                     Text(self.model.label)
                     Spacer()
-                    VStack(alignment: .leading, spacing: 20) {
-                        ForEach(self.model.choices,
-                                id: \.self.0
-                        ) { choice in
-                            Toggle(choice.1, isOn:  Binding(get: {
-                                let currentValue = self.model.value as! [String:Bool]
-                                return currentValue[choice.0]!
-                            }, set: { (newValue) in
-                                var currentValue = self.model.value as! [String:Bool]
-                                currentValue[choice.0] = newValue
-                                self.model.value = currentValue
-                            }))//.toggleStyle(CheckboxStyle())
-                        }
+                    ForEach(self.model.choices,
+                            id: \.self.0
+                    ) { choice in
+                        Toggle(choice.1, isOn:  Binding(get: {
+                            let currentValue = self.model.value as! [String:Bool]
+                            return currentValue[choice.0]!
+                        }, set: { (newValue) in
+                            var currentValue = self.model.value as! [String:Bool]
+                            currentValue[choice.0] = newValue
+                            self.model.value = currentValue
+                        })).padding(.leading)//.toggleStyle(CheckboxStyle())
                     }
                 }
             } else if (self.model.type == .title){
