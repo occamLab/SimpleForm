@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import Sliders
 
 public struct SimpleFormField: View, Identifiable {
     public var id = UUID()
