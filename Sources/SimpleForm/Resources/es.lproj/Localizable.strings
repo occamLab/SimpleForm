@@ -1,5 +1,6 @@
 
 // these are not correctly localized (just a placeholder)
-"missingRequiredFieldHighlight" = "Este campo es requerido.";
-"missingRequiredFieldAnnouncement" = "El campo %@ es requerido\n";
+"missingRequiredFieldHighlight" = "Este campo es obligatorio.";
+"missingRequiredFieldAnnouncement" = "El campo %@ es obligatorio\n";
 "required" = "requerido";
+"invalidEmailAddress" = "Por favor, introduce una dirección de correo electrónico válida.";
