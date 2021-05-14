@@ -89,7 +89,10 @@ public struct SF: View {
             let fields = section.model.fields
             
             for field in fields {
-                values[field.model.name] = field.model.value
+                // Title doesn't have any informational content
+                if field.model.type != .title {
+                    values[field.model.name] = field.model.value
+                }
             }
         }
         

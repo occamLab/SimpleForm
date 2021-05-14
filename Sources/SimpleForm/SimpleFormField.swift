@@ -204,7 +204,7 @@ public struct SimpleFormField: View, Identifiable {
                             var currentValue = self.model.value as! [String:Bool]
                             currentValue[choice.0] = newValue
                             self.model.value = currentValue
-                        })).toggleStyle(CheckboxStyle()).padding(.leading)//
+                        })).toggleStyle(CheckboxStyle()).padding(.leading)
                     }
                 }
             } else if (self.model.type == .title){
