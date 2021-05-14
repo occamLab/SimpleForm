@@ -191,7 +191,7 @@ public struct SimpleFormField: View, Identifiable {
                     self.model.value = newValue
                 }), in: self.model.closedRange)
             } else if (self.model.type == .checkboxes) {
-                VStack {
+                VStack(alignment: .leading) {
                     Text(self.model.label)
                     Spacer()
                     ForEach(self.model.choices,
