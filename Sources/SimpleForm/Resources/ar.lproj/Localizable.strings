@@ -1,0 +1,5 @@
+
+"missingRequiredFieldHighlight" = "هذا الحقل مطلوب";
+"missingRequiredFieldAnnouncement" = "الحقل %@ مطلوب\n";
+"required" = "مطلوب";
+"invalidEmailAddress" = "الرجاء كتابة بريد إلكتروني صحيح";
