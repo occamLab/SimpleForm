@@ -113,11 +113,7 @@ public struct SimpleFormField: View, Identifiable {
             
             if self.model.labelPosition == .above {
                 if self.model.type == .slider {
-                    HStack {
-                        Text(self.model.label)
-                        Spacer()
-                        Text(String(format: self.model.quantizeSlider ? "%.0f": "%.2f", self.model.value as! Float)).accessibility(hidden: true)
-                    }
+                    Text(self.model.label)
                 } else {
                     if self.model.isRequiredTextElement {
                         Text(self.model.label + " *").accessibility(label: Text(self.model.label + ", " + NSLocalizedString("required",  bundle: .module, comment: "this string is used to mark a field as required")))
@@ -125,7 +121,6 @@ public struct SimpleFormField: View, Identifiable {
                         Text(self.model.label)
                     }
                 }
-
             }
             if self.model.type == .text {
                 TextField(self.model.labelPosition == .placeholder ? self.model.label : "", text: Binding(get: {
@@ -172,15 +167,18 @@ public struct SimpleFormField: View, Identifiable {
                 }))
             } else if(self.model.type == .slider) {
                 ZStack {
-                    Slider(value: Binding(get: {
-                        return self.model.value as! Float
-                    }, set: { (newValue) in
-                        self.model.value = newValue
-                    }), in: self.model.closedRange, step: 1)
-                    .background(Color.clear)
-                    .if(self.model.quantizeSlider) { $0.accessibility(value: Text("\(Int(self.model.value as! Float))"))
+                    HStack {
+                        Slider(value: Binding(get: {
+                            return self.model.value as! Float
+                        }, set: { (newValue) in
+                            self.model.value = newValue
+                        }), in: self.model.closedRange, step: 1)
+                        .background(Color.clear)
+                        .if(self.model.quantizeSlider) { $0.accessibility(value: Text("\(Int(self.model.value as! Float))"))
+                        }
+                        .padding(20)
+                        Text(String(format: self.model.quantizeSlider ? "%.0f": "%.2f", self.model.value as! Float)).accessibility(hidden: true)
                     }
-                    .padding(20)
                 }.if(self.model.addSliderAccent) {
                     $0.background(Color.yellow)
                 }
