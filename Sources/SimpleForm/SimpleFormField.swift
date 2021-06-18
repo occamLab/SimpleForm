@@ -178,6 +178,8 @@ public struct SimpleFormField: View, Identifiable {
                         }
                         .padding(20)
                         Text(String(format: self.model.quantizeSlider ? "%.0f": "%.2f", self.model.value as! Float)).accessibility(hidden: true)
+                            .font(.headline)
+                            .padding(20)
                     }
                 }.if(self.model.addSliderAccent) {
                     $0.background(Color.yellow)
